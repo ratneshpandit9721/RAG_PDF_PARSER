@@ -1,0 +1,22 @@
+name: pdf_checker_infra
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+
+    volumes:
+      - ../..:/workspaces:cached
+
+    command: sleep infinity
+    depends_on:
+      - vector-db
+
+  valkey:
+    image: valkey/valkey
+
+  vector-db:
+    image: qdrant/qdrant
+    ports:
+      - "6335:6333"
+
